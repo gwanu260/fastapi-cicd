@@ -33,7 +33,8 @@ jobs:
             # 2. 필요시 환경설정 파일 구성(.env)
             #    GITHUB의 시크릿변수를 통해서 동적 생성(내일 체크)
             #    레포지토리>setting>secr...>actions>
-            #    new Repository secrets 버튼 클릭
+            #    new Repository secrets 버튼 클릭 > 제목, 내용 입력>저장
+            #    > : 덮어쓰기, >> : 기존 내용 유지 + 새로운 ㄴ
             - name: 환경변수 파일 (.env) 동적생성
               run : |
                 echo "${{ secrets.APP_ENV }}" >> .env
@@ -41,5 +42,27 @@ jobs:
                 cat .env
               shell : bash
             # 3. 필요한 파일을 ec2에 복사 (SCP)
+            #    EC2에 필요한 배포 관련 스크림트 작동 (SSH)
+            - name: Deploy sourcecode to Ec2
+              uses: appleboy/ssh-action@master
+              with:
+                host: ${{ secrets.EC2_HOST }}
+                username: ${{ secrets.EC2_USERNAME }}
+                key: ${{ secrets.EC2_KEY}}
+                port: 22
+                script: |
+                    # 1차로 ec2 세팅을 진행하고 나서 CI/CD
+                    # ec2에 접속하고 나서 진행할 업무 기술
+                    # 해당 프로젝트 폴더로 이동(cd)
+                    cd /home/ubuntu/projects
 
-            # 4. EC2에 필요한 배포 관련 스크림트 작동 (SSH)
+                    # 현재 프로젝트내  파일 확인
+                    ls -al
+
+                    # 추가(최초)로 설치된 패키지를 설치
+                    ./web.bin/pip install - r requiremnets.txt
+
+                    # uvicorn 서비스를 재가동(재시작: restart) -> sudo
+                    sudo systemctl restart hello service
+
+            
