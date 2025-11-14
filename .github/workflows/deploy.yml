@@ -34,7 +34,7 @@ jobs:
             #    GITHUB의 시크릿변수를 통해서 동적 생성(내일 체크)
             #    레포지토리>setting>secr...>actions>
             #    new Repository secrets 버튼 클릭 > 제목, 내용 입력>저장
-            #    > : 덮어쓰기, >> : 기존 내용 유지 + 새로운 ㄴ
+            #    > : 덮어쓰기, >> : 기존 내용 유지 + 새로운 내용 (이어 쓰기)
             - name: 환경변수 파일 (.env) 동적생성
               run : |
                 echo "${{ secrets.APP_ENV }}" >> .env
@@ -60,7 +60,7 @@ jobs:
                     ls -al
 
                     # 추가(최초)로 설치된 패키지를 설치
-                    ./web.bin/pip install - r requiremnets.txt
+                    ./web.bin/pip install - r requirements.txt
 
                     # uvicorn 서비스를 재가동(재시작: restart) -> sudo
                     sudo systemctl restart hello service
