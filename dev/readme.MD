@@ -13,3 +13,13 @@
 docker-compose up -d --build
 ## 종료 및 제거
 docker-compose down
+
+# 시크릿 변수
+- MYSQL_ROOT_PASSWORD   -> 1234
+- MYSQL_USER            -> guest
+- MYSQL_PASSWORD        -> 1234
+- DOCKER_USERNAME       -> gwaun260
+- DOCKER_PASSWORD       -> 
+- EC2_HOST              -> 15.152.37.188
+- EC2_USERNAME          -> ubuntu
+- EC2_KEY               -> xxx.pem 파일 내용전부
