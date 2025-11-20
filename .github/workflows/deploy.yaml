@@ -26,7 +26,7 @@ jobs:
                 username: ${{ secrets.DOCKER_USERNAME }}
                 password: ${{ secrets.DOCKER_PASSWORD }}
             
-                
+
             # fastapi 관련 앱이 설정되어 있는 이미지 생성 및 도커허브 푸시 v4~v6
             - name: Build and Push fastapi 앱
               uses: docker/build-push-action@v4
@@ -36,6 +36,15 @@ jobs:
                 file: ./dev/app/Dockerfile
                 push: true
                 tags: ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest
+            
+            # 커스텀된 nginx 이미지 생성 및 도커허브 푸시 v4~v6
+            - name: Build and Push nginx
+              uses: docker/build-push-action@v4
+              with:
+                context: ./dev/nginx
+                file: ./dev/nginx/Dockerfile
+                push: true
+                tags: ${{ secrets.DOCKER_USERNAME }}/nginx-proxy-app:latest
 
             # - name: 환경변수 파일 (.env) 동적생성
             #   run: |
