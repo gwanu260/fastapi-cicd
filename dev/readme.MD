@@ -1,5 +1,4 @@
 # 구조
-
 .
 └─ app
     └─ Dockerfile       : fast api 관련 도커파일 (핵심서비스)
@@ -8,3 +7,9 @@
 └─ nginx
     └─ nginx.conf       : nginx 에서 fastapi로 프록시 하는 구성 (설정파일)
 └─ docker-compse.yml    : 컴포즈 파일 -> n개의 컨테이너 구성 -> 연결 -> 구동
+
+# 구성 명령
+## 생성 및 실행
+docker-compose up -d --build
+## 종료 및 제거
+docker-compose down
